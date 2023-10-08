@@ -8,7 +8,7 @@ function UploadImage() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
   const maxUploadSizeInBytes = 10 * 1024 * 1024; // 10MB
-  const maxUploadsPerDay = 2;
+  const maxUploadsPerDay = 20;
   
   useEffect(() => {
     listImages();

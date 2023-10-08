@@ -91,7 +91,7 @@ function Chat() {
     if (currentDateString === storedDateString) {
       // Jika tanggal saat ini sama dengan tanggal yang disimpan, periksa batasan pesan
       const userSentMessageCount = parseInt(localStorage.getItem(userIpAddress)) || 0;
-      if (userSentMessageCount >= 2) { // Batasan pesan per hari (2 pesan)
+      if (userSentMessageCount >= 20) { // Batasan pesan per hari (2 pesan)
         Swal.fire({
           icon: "error",
           title: "Message limit exceeded",
@@ -137,7 +137,7 @@ function Chat() {
       const trimmedMessage = message.trim().substring(0, 60);
       const userIpAddress = userIp;
 
-      if (messageCount >= 2) { // Batasan pesan per hari (2 pesan)
+      if (messageCount >= 20) { // Batasan pesan per hari (2 pesan)
         Swal.fire({
           icon: "error",
           title: "Message limit exceeded",
