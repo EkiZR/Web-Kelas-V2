@@ -263,8 +263,7 @@ body {
 	border-radius: 50pt;
 }
 
-#Mesh1,
-#Mesh2 {
+#Mesh1 {
 	width: 100%;
 	position: absolute;
 	background-image: radial-gradient(at -66% 56.8%, hsl(292, 93%, 53%) 0px, transparent 50%);
@@ -279,18 +278,9 @@ body {
 }
 
 
-#Mesh2 {
-    min-height: 400px;
-    max-height: auto;
-	position: absolute;
-    background-image: radial-gradient(at 102.3% 49.5%, #7b1f80 0px, transparent 50%),
-        radial-gradient(at 81.4% 65.2%, hsl(0, 0%, 12%) 0px, transparent 50%);
-    right: 0;
-}
-
 #Tabs {
-    background-image: radial-gradient(at 122.3% 65.5%, #7b1f80 0px, transparent 50%),
-        radial-gradient(at 81.4% 65.2%, hsl(0, 0%, 12%) 0px, transparent 50%);
+	background-image: radial-gradient(at 122.3% 55.5%, hsla(292, 93%, 53%, 0.492) 0px, transparent 50%),
+		radial-gradient(at 81.4% 65.2%, hsl(0, 0%, 12%) 0px, transparent 50%);
 }
 
 #Glow {

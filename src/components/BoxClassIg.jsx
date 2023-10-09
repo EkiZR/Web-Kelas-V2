@@ -9,7 +9,7 @@ const BoxClassIg = () => {
 				<h1 className="text-white text-lg font-semibold pr-3 mt-3 absolute bottom-10">
 					Class Instagram
 				</h1>
-				<div className="text-white flex py-2 opacity-60 absolute bottom-1 text-xs">60 Follower</div>
+				<div className="text-white flex py-2 opacity-60 absolute bottom-1 text-xs">View More</div>
 			</a>
 		</div>
 	)

@@ -101,7 +101,7 @@ export default function ButtonRequest() {
 									))
 									.reverse()}
 							</div>
-							<div className="text-white text-sm mt-5">
+							<div className="text-white text-[0.7rem] mt-5">
 								Note : Jika tidak ada gambar yang sudah anda upload silahkan reload
 							</div>
 						</Typography>
