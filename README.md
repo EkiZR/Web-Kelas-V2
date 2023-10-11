@@ -1,20 +1,17 @@
 # Web Kelas
-Web Kelas adalah platform yang bertujuan untuk memberikan informasi mengenai kelas kami
+Web Kelas adalah platform yang bertujuan untuk menyediakan informasi tentang kelas kami. 
 
 Teknologi yang digunakan diantaranya: 
-- React JS
-- MUI
-- Tailwind CSS
-- Slick JS
-- Firebase
-- AOS
+- React JS: Membangun antarmuka pengguna yang responsif dan interaktif.
+- MUI: MUI (Material-UI) digunakan untuk mendesain antarmuka dengan komponen Material Design yang indah.
+- Tailwind CSS: Memastikan tampilan dan gaya yang modern dan fleksibel.
+- Slick JS: Untuk tampilan galeri yang halus dan menarik.
+- Firebase: Menyediakan backend yang aman dan efisien untuk pengelolaan data.
+- AOS: Animasi yang menarik untuk meningkatkan tampilan dan nuansa situs.
 
-Apa yang ada di web ini :
-- Text Anonim
-- Gallery
-- Structure And Schedule
+Apa yang dapat Anda temukan di web ini:
+- Text Anonim: Bagian ini memungkinkan pengguna untuk berinteraksi dengan informasi kelas tanpa harus mengungkapkan identitas mereka.
+- Gallery: Menampilkan gambar-gambar menarik yang terkait dengan kelas kami.
+- Structure And Schedule: Memberikan informasi rinci tentang struktur kelas dan jadwal yang tersedia.
 
-
-Link website : https://xitkj3.vercel.app/
-
-Mohon jika ingin menggunakan project ini, sertakan credit 🙏
+Kunjungi situs web kami di https://xitkj3.vercel.app/ untuk mendapatkan informasi lebih lanjut. Kami sangat menghargai apabila Anda ingin menggunakan proyek ini, harap sertakan kredit kami dalam penggunaan Anda. Terima kasih! 🙏
