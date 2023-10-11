@@ -7,6 +7,7 @@ Teknologi yang digunakan diantaranya:
 - Tailwind CSS
 - Slick JS
 - Firebase
+- AOS
 
 Apa yang ada di web ini :
 - Text Anonim
