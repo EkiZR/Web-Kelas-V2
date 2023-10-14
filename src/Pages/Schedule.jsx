@@ -1,4 +1,4 @@
-import React, { useEffect, startTransition, Suspense } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -75,9 +75,13 @@ const Schedule = () => {
             {currentDay}
           </div>
           <div data-aos="fade-up" data-aos-duration="400">
-            <Suspense fallback={<p>Loading...</p>}>
-              <TodayComponent />
-            </Suspense>
+            {TodayComponent ? (
+              <React.Suspense fallback={<p>Loading...</p>}>
+                <TodayComponent />
+              </React.Suspense>
+            ) : (
+              <p className="opacity-50">Tidak Ada Jadwal Hari Ini</p>
+            )}
           </div>
         </div>
       </div>
@@ -100,7 +104,6 @@ const Schedule = () => {
               }`}
               data-aos="fade-up"
               data-aos-duration={600 + index * 100}
-			  
             >
               <div className="text-base font-medium">{piketName}</div>
             </div>

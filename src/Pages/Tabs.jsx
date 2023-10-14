@@ -92,7 +92,7 @@ export default function FullWidthTabs() {
 							width: "auto",
 							margin: "0 auto",
 							"& .MuiTabs-indicator": {
-								borderBottom: "2px solid white", // Mengatur lebar dan warna border bottom
+								borderBottom: "2px solid white", 
 							},
 						}}
 						className="font-medium text-white text-2xl text-center mt-16"
@@ -109,7 +109,7 @@ export default function FullWidthTabs() {
 								padding: "0.5rem",
 								marginRight: "0.7rem",
 							}}
-							// className untuk menentukan gaya tab.
+						
 							className="font-medium text-white text-2xl text-center mt-16 "
 							id="Glow"
 						/>
