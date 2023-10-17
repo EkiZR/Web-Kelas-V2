@@ -54,6 +54,9 @@ Kunjungi situs web kami di https://xitkj3.vercel.app/ untuk mendapatkan informas
 ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/59da4808-8d88-4172-9d23-2b7fbc3e5f9b)
 -Untuk Mendapatkan ip target, pergi ke collection chat disitu terdapat ip user setiap mengirim pesan
 ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/4e8e29ff-fe7a-4ce6-b771-c62cfe0ccc5e)
+------
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/da0b81c4-a8ff-4f64-a32e-ae4ab59925f2)
+
 
 sekian, kurang lebihnya mohon maaf 🙏
 
