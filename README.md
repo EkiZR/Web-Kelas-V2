@@ -19,3 +19,31 @@ Project ini di buat oleh :
 - Dafy
 
 Kunjungi situs web kami di https://xitkj3.vercel.app/ untuk mendapatkan informasi lebih lanjut. Kami sangat menghargai apabila Anda ingin menggunakan proyek ini, harap sertakan kredit kami dalam penggunaan Anda. Terima kasih! 🙏
+
+# Tutorial Running Webnya (versi saya, jika ada yang lebih mudah dan efisien silahkan)
+1.Lakukan git clone ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/8f881d1e-353a-47b8-ac6f-fec60c1037dd)
+2.Buka foldernya di vscode, buka terminal lakukan npm install --legacy-peer-deps
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/6d19e7c6-d3cd-457d-9274-7f3058d34bbc)
+3.Jangan lupa ganti config firebase project ini, dengan config firebase anda. berikut cara membuat database di firebase
+ -langkah pertama silahkan login
+ -buka konsol, add project + 
+ ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/35465dfb-ebe7-454f-8257-03ce9d88ac22)
+-tambahkan storage dan firestore database 
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/4f770bd6-998d-44a4-b836-1881bd021944)
+-Ubah rules firestore database jadi sebagai berikut :
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/183df580-a341-4cf1-8769-3384ea4f9bab)
+-Ubah rules storage jadi sebagai berikut :
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/507b523e-7d41-4ed5-a875-0d82aac70f6a)
+-Pada storage tambahkan folder GambarAman, nah disitu bisa upload file gambar anda
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/1f3fa75e-2478-4f08-bc9a-a5db7602cc95)
+-Setelah itu pilih project settings
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/677341d3-5b0e-48a7-ae22-f13d26395852)
+-Scroll sedikit kebawah tekan tombol </>
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/a02a3656-9118-4a46-8955-115441cbf42b)
+
+
+
+
+
+
+
