@@ -40,6 +40,27 @@ Kunjungi situs web kami di https://xitkj3.vercel.app/ untuk mendapatkan informas
 ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/677341d3-5b0e-48a7-ae22-f13d26395852)
 -Scroll sedikit kebawah tekan tombol </>
 ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/a02a3656-9118-4a46-8955-115441cbf42b)
+-Setelah selesai copy confignya 
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/a79ecd78-dd08-4b32-9557-3f599001d739)
+-Ganti disini,file firebase.js
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/c69386fe-814b-4ae5-b526-4ca2ea0414fa)
+-buka lagi terminalnya ketik npm run dev
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/7802b25c-fa5a-4037-a8c2-c36e165159e1)
+
+# Fitur Rahasia memblokir seseorang lewat ip
+-Tambahkan collection di firestore database seperti berikut
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/f92ee3db-9946-4b80-8a09-1ff91a2e9341)
+-Add field seperti berikut 
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/59da4808-8d88-4172-9d23-2b7fbc3e5f9b)
+-Untuk Mendapatkan ip target, pergi ke collection chat disitu terdapat ip user setiap mengirim pesan
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/4e8e29ff-fe7a-4ce6-b771-c62cfe0ccc5e)
+
+sekian, kurang lebihnya mohon maaf 🙏
+
+
+
+
+
 
 
 
