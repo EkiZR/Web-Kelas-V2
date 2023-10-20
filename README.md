@@ -23,6 +23,9 @@ Kunjungi situs web kami di https://xitkj3.vercel.app/ untuk mendapatkan informas
 # Tutorial Running Webnya 
 Note: ini merupakan cara saya, jika ada yang lebih mudah dan efisien silahkan
 
+-Install NodeJS terlebih dahulu
+![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/59fd1565-d706-47b0-95e2-691b8081aa7b)
+
 1.Lakukan git clone ![image](https://github.com/EkiZR/Web-Kelas-V2/assets/92925560/8f881d1e-353a-47b8-ac6f-fec60c1037dd)
 
 2.Buka foldernya di vscode, buka terminal lakukan npm install --legacy-peer-deps
