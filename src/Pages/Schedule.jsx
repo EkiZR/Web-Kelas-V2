@@ -109,7 +109,7 @@ const Schedule = () => {
             </div>
           ))
         ) : (
-          <p className="opacity-50">Tidak ada Jadwal Piket Hari Ini</p>
+          <p className="opacity-50">Maaf Sistem Jadwal Sedang ada perbaikan</p>
         )}
       </div>
     </>
