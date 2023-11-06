@@ -31,19 +31,19 @@ const Schedule = () => {
   // Menentukan kelompok piket berdasarkan minggu saat ini
   if (currentWeek === 1 || currentWeek === 3) {
     piketGroup = [
-      ["Nicolas", "Togi", "Paulista", "Damar"],
+   /*    ["Nicolas", "Togi", "Paulista", "Damar"],
       ["Farel", "Jeriko", "Wahyu", "Davina"],
       ["Alya", "Hendri", "Hisyam", "Dafy"],
       ["Putri", "Natar", "Wahid", "Fadliansyah"],
-      ["Cariska", "Pratiwi", "Ridho", "Farji"],
+      ["Cariska", "Pratiwi", "Ridho", "Farji"], */
     ];
   } else if (currentWeek === 2 || currentWeek === 4) {
     piketGroup = [
-      ["Annissa", "Daus", "Eki", "Attala"],
+/*       ["Annissa", "Daus", "Eki", "Attala"],
       ["Sera", "Sultan", "Dimas", "Lista"],
       ["Windi", "Amel", "Arif", "Fadli"],
       ["Zaini", "Dendi", "Raka", "Bari"],
-      ["Putri", "Paulista", "Nila"],
+      ["Putri", "Paulista", "Nila"], */
     ];
   }
 
@@ -93,7 +93,7 @@ const Schedule = () => {
           data-aos="fade-up"
           data-aos-duration="500"
         >
-          Piket
+          Picket
         </div>
         {currentPiketNames && currentPiketNames.length > 0 ? (
           currentPiketNames.map((piketName, index) => (
