@@ -20,9 +20,7 @@ const Navbar = () => {
 				</div>
 
 				<div
-					className={`w-10 h-10 rounded-full flex justify-center items-center ${
-						isMenuOpen ? "bg-white" : ""
-					}`}
+					className={`w-10 h-10 rounded-full flex justify-center items-center `}
 					id="UserButton">
 					<img src="/user.svg" alt="" className="" />
 				</div>
