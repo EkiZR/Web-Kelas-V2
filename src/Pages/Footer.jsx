@@ -50,7 +50,7 @@ const Footer = () => {
 							<Rating />
 						</div>
 					</div>
-					
+
 					<div className="flex items-center justify-center mt-8  md:hidden">
 						{/* RATING */}
 						<Rating />
