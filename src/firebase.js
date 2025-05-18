@@ -6,12 +6,12 @@ import { getFirestore } from "firebase/firestore"
 import {getAuth, GoogleAuthProvider} from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBmUIXJblRGF4HTCO3hOB8MykvLOq7whUE",
-  authDomain: "project-web-kelas.firebaseapp.com",
-  projectId: "project-web-kelas",
-  storageBucket: "project-web-kelas.appspot.com",
-  messagingSenderId: "202691312352", 
-  appId: "1:202691312352:web:e82e7a494e705b2a12ee85"
+ apiKey: "AIzaSyCD51rvjnYVPYIeLQJK60wRlWh0_fF4Rgc",
+  authDomain: "jokiwebkelas.firebaseapp.com",
+  projectId: "jokiwebkelas",
+  storageBucket: "jokiwebkelas.firebasestorage.app",
+  messagingSenderId: "816274800618",
+  appId: "1:816274800618:web:b1143ab4f274fe9bf3fc93"
 
 
 };

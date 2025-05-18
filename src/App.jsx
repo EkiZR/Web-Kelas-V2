@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import Home from "./Pages/Home"
 import Carousel from "./Pages/Gallery"
 import FullWidthTabs from "./Pages/Tabs"
+import MemberSlider from "./components/MemberSlider"
 import Footer from "./Pages/Footer"
 import Chat from "./components/ChatAnonim"
 import AOS from "aos"
@@ -18,13 +19,14 @@ function App() {
 			<Home />
 
 			<Carousel />
-			<FullWidthTabs />
+		{/* 	<FullWidthTabs /> */}
+		<MemberSlider />
 
 			<div id="Mesh1"></div>
 
 
 			<div
-				className="lg:mx-[12%] lg:mt-[-5rem] lg:mb-20 hidden lg:block"
+				className="lg:mx-[12%] lg:mt-[5rem] lg:mb-20 hidden lg:block"
 				id="ChatAnonim_lg"
 				data-aos="fade-up"
 				data-aos-duration="1200">

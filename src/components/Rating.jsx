@@ -81,7 +81,7 @@ export default function Rating() {
                 min={0}
                 step={0.1}
                 max={10}
-                color="secondary"
+                color="primary"
                 valueLabelDisplay="off"
                 onChange={handleChange}
                 onChangeCommitted={handleSliderChange}

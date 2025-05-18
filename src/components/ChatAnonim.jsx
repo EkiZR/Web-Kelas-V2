@@ -7,9 +7,10 @@ import Swal from "sweetalert2";
 function Chat() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
+  const [shouldScrollToBottom, setShouldScrollToBottom] = useState(false); // Changed to false initially
   const [userIp, setUserIp] = useState("");
   const [messageCount, setMessageCount] = useState(0);
+  const [isInitialLoad, setIsInitialLoad] = useState(true); // Add this to track initial load
 
   const chatsCollectionRef = collection(db, "chats");
   const messagesEndRef = useRef(null);
@@ -38,26 +39,33 @@ function Chat() {
         };
       });
       setMessages(newMessages);
-      if (shouldScrollToBottom) {
+      
+      // Only scroll to bottom if it's not the initial load or if shouldScrollToBottom is true
+      if (!isInitialLoad && shouldScrollToBottom) {
         scrollToBottom();
+      }
+      
+      // After the first load, set isInitialLoad to false
+      if (isInitialLoad) {
+        setIsInitialLoad(false);
       }
     });
 
     return () => {
       unsubscribe(); // Membersihkan langganan saat komponen tidak lagi digunakan
     }
-  }, [shouldScrollToBottom]);
+  }, [shouldScrollToBottom, isInitialLoad]);
 
   useEffect(() => {
     // Mengambil alamat IP pengguna dan memeriksa batasan pesan
     getUserIp();
     checkMessageCount();
-    scrollToBottom();
+    // Removed scrollToBottom() call from here
   }, []);
 
   const scrollToBottom = () => {
     setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "auto" });
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); // Changed to smooth for better UX
     }, 100);
   }
 
@@ -91,7 +99,7 @@ function Chat() {
     if (currentDateString === storedDateString) {
       // Jika tanggal saat ini sama dengan tanggal yang disimpan, periksa batasan pesan
       const userSentMessageCount = parseInt(localStorage.getItem(userIpAddress)) || 0;
-      if (userSentMessageCount >= 20) { // Batasan pesan per hari (2 pesan)
+      if (userSentMessageCount >= 20) { // Batasan pesan per hari (20 pesan)
         Swal.fire({
           icon: "error",
           title: "Message limit exceeded",
@@ -164,9 +172,8 @@ function Chat() {
       });
 
       setMessage(""); // Menghapus pesan setelah mengirim
-      setTimeout(() => {
-        setShouldScrollToBottom(true);
-      }, 100);
+      // Enable scrolling to bottom after sending a message
+      setShouldScrollToBottom(true);
     }
   };
 
@@ -177,13 +184,23 @@ function Chat() {
     }
   };
 
+  // Reset shouldScrollToBottom when user scrolls manually
+  const handleScroll = () => {
+    setShouldScrollToBottom(false);
+  };
+
   return (
     <div className="" id="ChatAnonim">
       <div className="text-center text-4xl font-semibold" id="Glow">
         Text Anonim
       </div>
 
-      <div className="mt-5" id="KotakPesan" style={{ overflowY: "auto" }}>
+      <div 
+        className="mt-5" 
+        id="KotakPesan" 
+        style={{ overflowY: "auto" }}
+        onScroll={handleScroll}
+      >
         {messages.map((msg, index) => (
           <div key={index} className="flex items-start text-sm py-[1%]">
             <img src={msg.sender.image} alt="User Profile" className="h-7 w-7 mr-2 " />

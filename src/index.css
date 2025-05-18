@@ -4,15 +4,15 @@
 @tailwind utilities;
 
 :root {
-	--primary-color: #575c84;
-	--secondary-color: #686e9d;
-	--tertiary-color: #e06bd5;
-	--quaternary-color: #18fff3;
-	--quinary-color: #ff775c;
-	--senary-color: #ff4359;
-	--septenary-color: #76ffb0;
-	--bg: #4b39c6;
-	--bg1: #e06bd5;
+	--primary-color: #57789c;
+	--secondary-color: #6884ad;
+	--tertiary-color: #5e9be6;
+	--quaternary-color: #18e9ff;
+	--quinary-color: #5cc2ff;
+	--senary-color: #43a6ff;
+	--septenary-color: #76d9ff;
+	--bg: #2f69c6;
+	--bg1: #5e9be6;
 }
 
 html {
@@ -76,13 +76,13 @@ body {
 	height: auto;
 	background: radial-gradient(
 			circle,
-			rgba(224, 107, 213, 0.8520658263305322) 0%,
-			rgba(75, 57, 198, 0.9052871148459384) 100%
+			rgba(94, 155, 230, 0.85) 0%,
+			rgba(47, 105, 198, 0.90) 100%
 		),
-		url("/Background.jpeg");
+		url("/Home.jpg");
 	background-repeat: no-repeat;
-	background-size: contain;
-	background-position: top;
+	background-size: fill;
+	background-position: bottom;
 	z-index: 10;
 }
 
@@ -191,23 +191,23 @@ body {
 }
 
 #AngkaGradientBlue {
-	-webkit-text-stroke: 1px #14a6ef3f; /* Menggunakan efek outline teks dengan warna hitam */
-	background: linear-gradient(to bottom right, #96dcff, #14a6ef 55%);
-	filter: brightness(1.2);
+	-webkit-text-stroke: 1px rgba(0, 162, 255, 0.4); /* Menggunakan efek outline teks dengan warna biru */
+	background: linear-gradient(to bottom right, #00eaff, #0080ff 55%);
+	filter: brightness(1.5);
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-	text-shadow: #a4dcf893 2px 0 20px;
+	text-shadow: #00a2ff 2px 0 20px;
 }
 
 #AngkaGradientPink {
-	-webkit-text-stroke: 1px #d41a773d; /* Menggunakan efek outline teks dengan warna hitam */
-	background: linear-gradient(to top right, #fab6e7, #d41a77 80%);
-	filter: brightness(1.2);
+	-webkit-text-stroke: 1px rgba(0, 119, 255, 0.4); /* Menggunakan efek outline teks dengan warna biru tua */
+	background: linear-gradient(to top right, #00ccff , #0055ff 70%);
+	filter: brightness(1.5);
 	-webkit-background-clip: text;
 	background-clip: text;
 	color: transparent;
-	text-shadow: #d41a77 2px 0 20px;
+	text-shadow: #0077ff 2px 0 20px;
 }
 
 .slick-slide {
@@ -221,7 +221,7 @@ body {
 .slick-center {
 	transform: scale(1.1); /* Memperbesar elemen center */
 	z-index: 1; /* Membuat elemen center tumpang tindih elemen lain */
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Efek bayangan */
+    filter: drop-shadow(0 0 0.55rem rgba(10, 151, 245, 0.267));
 	border-radius: 10px;
 	z-index: 999;
 }
@@ -266,7 +266,7 @@ body {
 #Mesh1 {
 	width: 100%;
 	position: absolute;
-	background-image: radial-gradient(at -66% 56.8%, hsl(292, 93%, 53%) 0px, transparent 50%);
+	background-image: radial-gradient(at -66% 56.8%, hsl(210, 93%, 53%) 0px, transparent 50%);
 	background-repeat: no-repeat, no-repeat;
 	z-index: -999;
 }
@@ -279,7 +279,7 @@ body {
 
 
 #Tabs {
-	background-image: radial-gradient(at 122.3% 55.5%, hsla(292, 93%, 53%, 0.492) 0px, transparent 50%),
+	background-image: radial-gradient(at 122.3% 55.5%, hsla(210, 93%, 53%, 0.492) 0px, transparent 50%),
 		radial-gradient(at 81.4% 65.2%, hsl(0, 0%, 12%) 0px, transparent 50%);
 }
 
@@ -404,8 +404,8 @@ input:focus {
 #Footer {
 	background: linear-gradient(
 		to top,
-		rgba(218, 9, 229, 0.39) 5%,
-		rgba(218, 9, 229, 0.149) 55%,
+		rgba(9, 141, 229, 0.39) 5%,
+		rgba(9, 170, 229, 0.149) 55%,
 		rgba(0, 0, 0, 0)
 	);
 }
@@ -456,7 +456,7 @@ input:focus {
 @media only screen and (min-width: 550px) {
 	#Home {
 		background-size: cover;
-		background-position: 10% 30%;
+		background-position: 30% 70%;
 	}
 
 	#Home::after {
@@ -487,6 +487,6 @@ input:focus {
 	-webkit-backdrop-filter: blur(4px);
 	border: 1px solid rgba(255, 255, 255, 0.11);
 
-	background-image: radial-gradient(at 80% 100%, hsla(282, 97%, 43%, 0) 0px, transparent 50%),
-		radial-gradient(at 0% 0%, #ff4359 0px, transparent 60%);
+	background-image: radial-gradient(at 80% 100%, hsla(210, 97%, 43%, 0) 0px, transparent 50%),
+		radial-gradient(at 0% 0%, #43a6ff 0px, transparent 60%);
 } */
