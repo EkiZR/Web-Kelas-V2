@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Slider from "react-slick";
 import CardMember from "./CardMember";
 import AOS from "aos";
@@ -348,39 +348,117 @@ const MEMBERS_DATA = [
 
 
 
+
 const MemberSlider = () => {
-  const [sliderRef, setSliderRef] = useState(null);
+  const sliderRef = useRef(null);
+  const scrollTrackRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [totalSlides, setTotalSlides] = useState(MEMBERS_DATA.length);
   const [visibleSlides, setVisibleSlides] = useState(5);
+  const [currentSlide, setCurrentSlide] = useState(0);
   
-  // Update scroll progress when slides change
-  const handleBeforeChange = (oldIndex, newIndex) => {
-    const progress = newIndex / (totalSlides - visibleSlides);
+  // Update scroll progress when slider changes
+  const handleAfterChange = (current) => {
+    setCurrentSlide(current);
+    const maxSlides = totalSlides - visibleSlides;
+    const progress = maxSlides > 0 ? current / maxSlides : 0;
     setScrollProgress(progress > 1 ? 1 : progress);
+  };
+  
+  // Handle scrollbar track click
+  const handleScrollTrackClick = (e) => {
+    if (!sliderRef.current || !scrollTrackRef.current) return;
+    
+    e.preventDefault();
+    const trackRect = scrollTrackRef.current.getBoundingClientRect();
+    const clickPosition = (e.clientX - trackRect.left) / trackRect.width;
+    
+    // Calculate target slide based on click position
+    const maxSlides = totalSlides - visibleSlides;
+    const targetSlide = Math.round(clickPosition * maxSlides);
+    
+    // Go to target slide
+    sliderRef.current.slickGoTo(targetSlide);
+  };
+  
+  // Handle scrollbar thumb drag
+  const handleThumbDrag = (e) => {
+    const startDrag = (e) => {
+      document.addEventListener('mousemove', doDrag);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchmove', doDrag);
+      document.addEventListener('touchend', stopDrag);
+    };
+    
+    const doDrag = (e) => {
+      if (!scrollTrackRef.current || !sliderRef.current) return;
+      
+      e.preventDefault();
+      const trackRect = scrollTrackRef.current.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      let clickPosition = (clientX - trackRect.left) / trackRect.width;
+      
+      // Ensure value is between 0 and 1
+      clickPosition = Math.max(0, Math.min(1, clickPosition));
+      
+      // Calculate target slide
+      const maxSlides = totalSlides - visibleSlides;
+      const targetSlide = Math.round(clickPosition * maxSlides);
+      
+      // Go to target slide
+      sliderRef.current.slickGoTo(targetSlide);
+    };
+    
+    const stopDrag = () => {
+      document.removeEventListener('mousemove', doDrag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchmove', doDrag);
+      document.removeEventListener('touchend', stopDrag);
+    };
+    
+    // Start the drag process
+    startDrag(e);
+    e.preventDefault(); // Prevent text selection
   };
 
   // Update visible slides based on screen size
   useEffect(() => {
     const handleResize = () => {
+      let newVisibleSlides = 5;
+      
       if (window.innerWidth >= 1280) {
-        setVisibleSlides(5);
+        newVisibleSlides = 5;
       } else if (window.innerWidth >= 1024) {
-        setVisibleSlides(3);
+        newVisibleSlides = 3;
       } else if (window.innerWidth >= 640) {
-        setVisibleSlides(2);
+        newVisibleSlides = 2;
       } else {
-        setVisibleSlides(1);
+        newVisibleSlides = 1;
+      }
+      
+      setVisibleSlides(newVisibleSlides);
+      
+      // Recalculate progress after resize
+      if (sliderRef.current) {
+        const current = sliderRef.current.innerSlider.state.currentSlide;
+        const maxSlides = totalSlides - newVisibleSlides;
+        const progress = maxSlides > 0 ? current / maxSlides : 0;
+        setScrollProgress(progress > 1 ? 1 : progress);
       }
     };
     
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, [totalSlides]);
+
+  useEffect(() => {
+    setTotalSlides(MEMBERS_DATA.length);
   }, []);
 
   // Calculate scrollbar width
-  const scrollbarWidth = totalSlides ? (visibleSlides / totalSlides) * 100 : 100;
+  const scrollbarWidth = totalSlides && visibleSlides < totalSlides ? 
+    (visibleSlides / totalSlides) * 100 : 20;
   
   const memberSettings = {
     className: "center member-slider",
@@ -397,7 +475,7 @@ const MemberSlider = () => {
     speed: 1000,
     pauseOnHover: true,
     touchThreshold: 10,
-    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
     appendDots: (dots) => (
       <div className="custom-dots hidden md:block">
         <ul className="flex justify-center md:gap-3 gap-1 mt-2 md:mt-4"> {dots} </ul>
@@ -516,7 +594,7 @@ const MemberSlider = () => {
         </div>
         
         <div className="w-full py-4">
-          <Slider ref={setSliderRef} {...memberSettings}>
+          <Slider ref={sliderRef} {...memberSettings}>
             {MEMBERS_DATA.map((member, index) => (
               <div key={index} className=" ">
                 <CardMember {...member} />
@@ -526,13 +604,19 @@ const MemberSlider = () => {
           
           {/* Custom Mobile Scrollbar */}
           <div className="md:hidden mt-4 px-[5%] lg:px-[10%]">
-            <div className="w-full h-1 bg-white/20 rounded-full">
+            <div 
+              ref={scrollTrackRef}
+              className="w-full h-3 bg-white/20 rounded-full cursor-pointer"
+              onClick={handleScrollTrackClick}
+            >
               <div 
-                className="h-full bg-blue-500 rounded-full transition-all duration-300 shadow-lg shadow-blue-500/50"
+                className="h-full bg-blue-500 rounded-full shadow-lg shadow-blue-500/50 cursor-grab active:cursor-grabbing"
                 style={{ 
                   width: `${scrollbarWidth}%`, 
                   transform: `translateX(${scrollProgress * (100 - scrollbarWidth)}%)` 
                 }}
+                onMouseDown={handleThumbDrag}
+                onTouchStart={handleThumbDrag}
               ></div>
             </div>
           </div>
