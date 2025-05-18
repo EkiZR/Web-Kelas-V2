@@ -356,26 +356,35 @@ const MemberSlider = () => {
   const [totalSlides, setTotalSlides] = useState(MEMBERS_DATA.length);
   const [visibleSlides, setVisibleSlides] = useState(5);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   
   // Update scroll progress when slider changes
   const handleAfterChange = (current) => {
+    if (isDragging) return; // Don't update during drag to avoid conflicts
+    
     setCurrentSlide(current);
-    const maxSlides = totalSlides - visibleSlides;
+    const maxSlides = Math.max(0, totalSlides - visibleSlides);
     const progress = maxSlides > 0 ? current / maxSlides : 0;
-    setScrollProgress(progress > 1 ? 1 : progress);
+    setScrollProgress(Math.max(0, Math.min(1, progress)));
   };
   
   // Handle scrollbar track click
   const handleScrollTrackClick = (e) => {
-    if (!sliderRef.current || !scrollTrackRef.current) return;
+    if (!sliderRef.current || !scrollTrackRef.current || isDragging) return;
     
     e.preventDefault();
+    e.stopPropagation();
+    
     const trackRect = scrollTrackRef.current.getBoundingClientRect();
-    const clickPosition = (e.clientX - trackRect.left) / trackRect.width;
+    const clickPosition = Math.max(0, Math.min(1, (e.clientX - trackRect.left) / trackRect.width));
     
     // Calculate target slide based on click position
-    const maxSlides = totalSlides - visibleSlides;
+    const maxSlides = Math.max(0, totalSlides - visibleSlides);
     const targetSlide = Math.round(clickPosition * maxSlides);
+    
+    // Update states immediately to prevent jumping
+    setCurrentSlide(targetSlide);
+    setScrollProgress(clickPosition);
     
     // Go to target slide
     sliderRef.current.slickGoTo(targetSlide);
@@ -383,42 +392,65 @@ const MemberSlider = () => {
   
   // Handle scrollbar thumb drag
   const handleThumbDrag = (e) => {
-    const startDrag = (e) => {
-      document.addEventListener('mousemove', doDrag);
-      document.addEventListener('mouseup', stopDrag);
-      document.addEventListener('touchmove', doDrag);
-      document.addEventListener('touchend', stopDrag);
-    };
+    if (!sliderRef.current || !scrollTrackRef.current) return;
     
-    const doDrag = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+    
+    // Disable autoplay during drag
+    sliderRef.current.slickPause();
+    
+    const trackRect = scrollTrackRef.current.getBoundingClientRect();
+    const startX = e.clientX || (e.touches && e.touches[0].clientX);
+    const startProgress = scrollProgress;
+    
+    const doDrag = (dragEvent) => {
       if (!scrollTrackRef.current || !sliderRef.current) return;
       
-      e.preventDefault();
-      const trackRect = scrollTrackRef.current.getBoundingClientRect();
-      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-      let clickPosition = (clientX - trackRect.left) / trackRect.width;
+      dragEvent.preventDefault();
+      const currentX = dragEvent.clientX || (dragEvent.touches && dragEvent.touches[0].clientX);
+      const deltaX = currentX - startX;
+      const trackWidth = scrollTrackRef.current.getBoundingClientRect().width;
       
-      // Ensure value is between 0 and 1
-      clickPosition = Math.max(0, Math.min(1, clickPosition));
+      // Calculate new progress based on drag distance
+      const deltaProgress = deltaX / trackWidth;
+      let newProgress = startProgress + deltaProgress;
+      newProgress = Math.max(0, Math.min(1, newProgress));
       
       // Calculate target slide
-      const maxSlides = totalSlides - visibleSlides;
-      const targetSlide = Math.round(clickPosition * maxSlides);
+      const maxSlides = Math.max(0, totalSlides - visibleSlides);
+      const targetSlide = Math.round(newProgress * maxSlides);
       
-      // Go to target slide
+      // Update states immediately
+      setScrollProgress(newProgress);
+      setCurrentSlide(targetSlide);
+      
+      // Update slider
       sliderRef.current.slickGoTo(targetSlide);
     };
     
     const stopDrag = () => {
+      setIsDragging(false);
+      
+      // Re-enable autoplay after drag
+      setTimeout(() => {
+        if (sliderRef.current) {
+          sliderRef.current.slickPlay();
+        }
+      }, 500);
+      
       document.removeEventListener('mousemove', doDrag);
       document.removeEventListener('mouseup', stopDrag);
       document.removeEventListener('touchmove', doDrag);
       document.removeEventListener('touchend', stopDrag);
     };
     
-    // Start the drag process
-    startDrag(e);
-    e.preventDefault(); // Prevent text selection
+    // Add event listeners
+    document.addEventListener('mousemove', doDrag, { passive: false });
+    document.addEventListener('mouseup', stopDrag);
+    document.addEventListener('touchmove', doDrag, { passive: false });
+    document.addEventListener('touchend', stopDrag);
   };
 
   // Update visible slides based on screen size
@@ -440,10 +472,11 @@ const MemberSlider = () => {
       
       // Recalculate progress after resize
       if (sliderRef.current) {
-        const current = sliderRef.current.innerSlider.state.currentSlide;
-        const maxSlides = totalSlides - newVisibleSlides;
+        const current = sliderRef.current.innerSlider.state.currentSlide || 0;
+        setCurrentSlide(current);
+        const maxSlides = Math.max(0, totalSlides - newVisibleSlides);
         const progress = maxSlides > 0 ? current / maxSlides : 0;
-        setScrollProgress(progress > 1 ? 1 : progress);
+        setScrollProgress(Math.max(0, Math.min(1, progress)));
       }
     };
     
@@ -456,9 +489,12 @@ const MemberSlider = () => {
     setTotalSlides(MEMBERS_DATA.length);
   }, []);
 
-  // Calculate scrollbar width
+  // Calculate scrollbar width - ensure minimum width for usability
   const scrollbarWidth = totalSlides && visibleSlides < totalSlides ? 
-    (visibleSlides / totalSlides) * 100 : 20;
+    Math.max((visibleSlides / totalSlides) * 100, 15) : 100;
+  
+  // Calculate if scrollbar should be shown
+  const shouldShowScrollbar = totalSlides > visibleSlides;
   
   const memberSettings = {
     className: "center member-slider",
@@ -470,9 +506,9 @@ const MemberSlider = () => {
     arrows: false,
     dots: true,
     infinite: true,
-    autoplay: true,
+    autoplay: !isDragging, // Disable autoplay during drag
     autoplaySpeed: 2000,
-    speed: 1000,
+    speed: 500, // Faster transition for better UX
     pauseOnHover: true,
     touchThreshold: 10,
     afterChange: handleAfterChange,
@@ -494,7 +530,7 @@ const MemberSlider = () => {
           centerMode: true,
           centerPadding: "60px",
           dots: true,
-          autoplay: true,
+          autoplay: !isDragging,
           autoplaySpeed: 2000,
         },
       },
@@ -505,7 +541,7 @@ const MemberSlider = () => {
           centerMode: true,
           centerPadding: "40px",
           dots: true,
-          autoplay: true,
+          autoplay: !isDragging,
           autoplaySpeed: 2000,
         },
       },
@@ -515,8 +551,8 @@ const MemberSlider = () => {
           slidesToShow: 1,
           centerMode: true,
           centerPadding: "40px",
-          dots: false, // Remove dots on mobile
-          autoplay: true,
+          dots: false,
+          autoplay: !isDragging,
           autoplaySpeed: 2000,
         },
       },
@@ -526,12 +562,12 @@ const MemberSlider = () => {
   const leaderSettings = {
     ...memberSettings,
     className: "leader-slider",
-    centerMode: false, // Menghapus efek peek
+    centerMode: false,
     slidesToShow: 2,
     centerPadding: "0px",
-    dots: false, // Menghapus dots
-    infinite: false, // Menghapus infinite scroll
-    autoplay: false, // Menghapus autoplay
+    dots: false,
+    infinite: false,
+    autoplay: false,
     responsive: [
       {
         breakpoint: 640,
@@ -539,7 +575,7 @@ const MemberSlider = () => {
           slidesToShow: 1,
           centerMode: true,
           centerPadding: "40px",
-          dots: false, // Remove dots on mobile
+          dots: false,
           autoplay: true,
           infinite: true,
           autoplaySpeed: 2000,
@@ -556,7 +592,6 @@ const MemberSlider = () => {
       offset: 10,
     });
   }, []);
-
 
   return (
     <div className="w-full overflow-hidden">
@@ -602,24 +637,46 @@ const MemberSlider = () => {
             ))}
           </Slider>
           
-          {/* Custom Mobile Scrollbar */}
-          <div className="md:hidden mt-4 px-[5%] lg:px-[10%]">
-            <div 
-              ref={scrollTrackRef}
-              className="w-full h-3 bg-white/20 rounded-full cursor-pointer"
-              onClick={handleScrollTrackClick}
-            >
-              <div 
-                className="h-full bg-blue-500 rounded-full shadow-lg shadow-blue-500/50 cursor-grab active:cursor-grabbing"
-                style={{ 
-                  width: `${scrollbarWidth}%`, 
-                  transform: `translateX(${scrollProgress * (100 - scrollbarWidth)}%)` 
-                }}
-                onMouseDown={handleThumbDrag}
-                onTouchStart={handleThumbDrag}
-              ></div>
+          {/* Custom Mobile Scrollbar - Only show if needed */}
+          {shouldShowScrollbar && (
+            <div className="md:hidden mt-6 px-[5%] lg:px-[10%]">
+              <div className="flex items-center justify-center">
+                <div 
+                  ref={scrollTrackRef}
+                  className="relative w-full max-w-xs h-3 bg-white/20 rounded-full cursor-pointer touch-none select-none border-2"
+                  onClick={handleScrollTrackClick}
+                  role="scrollbar"
+                  aria-valuenow={Math.round(scrollProgress * 100)}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label="Slider progress"
+                >
+                  <div 
+                    className={`absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full shadow-lg transition-all duration-150 ${
+                      isDragging ? 'shadow-blue-500/70 scale-y-110' : 'shadow-blue-500/40'
+                    } cursor-grab active:cursor-grabbing`}
+                    style={{ 
+                      width: `${scrollbarWidth}%`, 
+                      transform: `translateX(${scrollProgress * (583 - scrollbarWidth)}%)`,
+                      willChange: 'transform'
+                    }}
+                    onMouseDown={handleThumbDrag}
+                    onTouchStart={handleThumbDrag}
+                  >
+                    {/* Touch target enhancer */}
+                    <div className="absolute inset-0 -m-2 rounded-full" />
+                  </div>
+                </div>
+              </div>
+              
+              {/* Progress indicator */}
+              <div className="flex justify-center mt-3">
+                <span className="text-white/70 text-sm font-medium">
+                  {currentSlide + 1} / {totalSlides}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
@@ -664,6 +721,20 @@ const MemberSlider = () => {
           .slick-list {
             overflow: visible !important;
           }
+        }
+
+        /* Prevent text selection during drag */
+        body.scrollbar-dragging {
+          user-select: none;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+        }
+
+        /* Improve scrollbar touch target */
+        .custom-scrollbar-thumb {
+          min-height: 44px; /* iOS recommended touch target */
+          min-width: 44px;
         }
       `}</style>
     </div>
