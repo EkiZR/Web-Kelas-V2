@@ -219,7 +219,7 @@ function Chat() {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-4" id="ChatAnonim">
+    <div className="w-full h-auto max-w-lg mx-auto p-4" id="ChatAnonim">
       <div className="text-center text-4xl font-semibold mb-4" id="Glow">
         Text Anonim
       </div>
