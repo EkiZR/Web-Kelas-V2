@@ -16,7 +16,7 @@ const LEADERS_DATA = [
   {
     name: "Marven",
     shortName: "Marven",
-    role: "Ketua",
+    role: "Wakil",
     backgroundImage: "/Member/Marven.jpg",
     profileImage: "/Member/Marven.jpg",
     instagramLink: "https://www.instagram.com/marvennwiratamaa/?hl=id",

@@ -79,10 +79,10 @@ body {
 			rgba(94, 155, 230, 0.85) 0%,
 			rgba(47, 105, 198, 0.90) 100%
 		),
-		url("/Home.jpg");
+		url("/(14).jpg");
 	background-repeat: no-repeat;
 	background-size: fill;
-	background-position: bottom;
+	background-position: top;
 	z-index: 10;
 }
 
@@ -458,6 +458,9 @@ input:focus {
 		background-size: cover;
 		background-position: 30% 70%;
 	}
+
+
+	
 
 	#Home::after {
 		content: "";
