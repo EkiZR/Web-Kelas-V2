@@ -7,6 +7,7 @@ import Footer from "./Pages/Footer"
 import Chat from "./components/ChatAnonim"
 import AOS from "aos"
 import "aos/dist/aos.css"
+import Bazaar from "./Pages/Bazaar"
 
 function App() {
 	useEffect(() => {
@@ -19,6 +20,8 @@ function App() {
 			<Home />
 
 			<Carousel />
+			{/* Menu */}
+	<Bazaar/>
 		{/* 	<FullWidthTabs /> */}
 		<MemberSlider />
 

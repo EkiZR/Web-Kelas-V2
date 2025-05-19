@@ -250,7 +250,7 @@ const MEMBERS_DATA = [
   },
   {
     name: "Kristina",
-    shortName: "Kristina",
+    shortName: "Kristin",
     backgroundImage: "/Member/Kristina.jpg",
     profileImage: "/Member/Kristina.jpg",
     instagramLink: "https://www.instagram.com/kristina4_11",
