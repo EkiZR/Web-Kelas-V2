@@ -35,7 +35,7 @@ const Bazaar = () => {
   ];
   
   return (
-    <div className="h-auto text-white px-4 md:px-[10%] py-12 bg-gradient-to-b from-transparent via-gray-900 to-transparent " id="Menu">
+    <div className="h-auto text-white px-4 md:px-[10%] md:mt-[20px] py-12 bg-gradient-to-b from-transparent via-gray-900 to-transparent " id="Menu">
           <h1 className="text-3xl md:text-5xl font-bold text-center mb-8" id="AngkaGradientBlue">         MENU BAZAAR       </h1>        
       
       {/* Products Grid */}
