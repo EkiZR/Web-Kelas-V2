@@ -331,7 +331,7 @@ body {
 	border-radius: 30pt;
 }
 
-#ChatAnonim_lg {
+/* #ChatAnonim_lg {
 	background: rgba(255, 255, 255, 0.14);
 	border-radius: 30pt;
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -339,7 +339,7 @@ body {
 	-webkit-backdrop-filter: blur(6.9px);
 	border: 1px solid rgba(255, 255, 255, 0.09);
 	padding: 20px 40px;
-}
+} */
 
 .overflow-y-scroll-no-thumb {
 	scrollbar-width: none; /* Menyembunyikan thumb (gulir) */

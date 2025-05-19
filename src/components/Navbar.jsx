@@ -72,8 +72,8 @@ const Navbar = () => {
 						</a>
 					</li>
 					<li>
-						<a href="#Tabs" className="text-white opacity-80 text-[1rem] font-semibold">
-							Structure & Schedule
+						<a href="#Menu" className="text-white opacity-80 text-[1rem] font-semibold">
+							Bazaar
 						</a>
 					</li>
 				</ul>

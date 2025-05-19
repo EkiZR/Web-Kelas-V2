@@ -97,7 +97,7 @@ export default function BoxTextAnonim() {
 						{/* <Typography id="spring-modal-title" variant="h6" component="h2">
 							Text in a modal
 						</Typography> */}
-						<Typography id="spring-modal-description" sx={{ mt: 3 }}>
+						<Typography  sx={{ mt: 3 }}>
 							<Chat/>
 						</Typography>
 					</Box>

@@ -11,7 +11,7 @@ function Chat() {
   const [userIp, setUserIp] = useState("");
   const [messageCount, setMessageCount] = useState(0);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [isLoading, setIsLoading] = useState(true); // Tambahkan state loading
+  const [isLoading, setIsLoading] = useState(true);
 
   const chatsCollectionRef = collection(db, "chats");
   const messagesEndRef = useRef(null);
@@ -108,30 +108,35 @@ function Chat() {
   };
 
   const checkMessageCount = () => {
-    const userIpAddress = userIp || localStorage.getItem("userIp") || "unknown";
-    const currentDate = new Date();
-    const currentDateString = currentDate.toDateString();
-    const storedDateString = localStorage.getItem("messageCountDate");
+    try {
+      const userIpAddress = userIp || localStorage.getItem("userIp") || "unknown";
+      const currentDate = new Date();
+      const currentDateString = currentDate.toDateString();
+      const storedDateString = localStorage.getItem("messageCountDate");
 
-    if (currentDateString === storedDateString) {
-      // Jika tanggal saat ini sama dengan tanggal yang disimpan, periksa batasan pesan
-      const userSentMessageCount = parseInt(localStorage.getItem(userIpAddress)) || 0;
-      if (userSentMessageCount >= 20) { // Batasan pesan per hari (20 pesan)
-        Swal.fire({
-          icon: "error",
-          title: "Message limit exceeded",
-          text: "You have reached your daily message limit.",
-          customClass: {
-            container: "sweet-alert-container",
-          },
-        });
+      if (currentDateString === storedDateString) {
+        // Jika tanggal saat ini sama dengan tanggal yang disimpan, periksa batasan pesan
+        const userSentMessageCount = parseInt(localStorage.getItem(userIpAddress)) || 0;
+        if (userSentMessageCount >= 20) { // Batasan pesan per hari (20 pesan)
+          Swal.fire({
+            icon: "error",
+            title: "Message limit exceeded",
+            text: "You have reached your daily message limit.",
+            customClass: {
+              container: "sweet-alert-container",
+            },
+          });
+        } else {
+          setMessageCount(userSentMessageCount);
+        }
       } else {
-        setMessageCount(userSentMessageCount);
+        // Jika tanggal berbeda, bersihkan data penghitungan pesan sebelumnya
+        localStorage.removeItem(userIpAddress);
+        localStorage.setItem("messageCountDate", currentDateString);
       }
-    } else {
-      // Jika tanggal berbeda, bersihkan data penghitungan pesan sebelumnya
-      localStorage.removeItem(userIpAddress);
-      localStorage.setItem("messageCountDate", currentDateString);
+    } catch (error) {
+      console.error("Error checking message count:", error);
+      // Continue without counting messages if localStorage fails
     }
   };
 
@@ -219,8 +224,8 @@ function Chat() {
   };
 
   return (
-    <div className="w-full h-auto max-w-lg mx-auto p-4" id="ChatAnonim">
-      <div className="text-center text-4xl font-semibold mb-4" id="Glow">
+    <div className="w-full h-auto max-w-lg mx-auto p-4 ">
+      <div className="text-center text-white text-4xl font-semibold mb-4" id="Glow">
         Text Anonim
       </div>
 
@@ -230,20 +235,17 @@ function Chat() {
         </div>
       ) : (
         <>
+          {/* Container pesan dengan border dan background solid */}
           <div 
-            className="mt-5 bg-opacity-40 bg-gray-800 rounded-lg p-4 min-h-[300px] max-h-[400px] overflow-y-auto" 
-            id="KotakPesan" 
+            className="mt-5 bg-white/20  rounded-xl p-4 min-h-[300px] max-h-[400px] overflow-y-auto border border-gray-700 shadow-md" 
+      
             onScroll={handleScroll}
-            style={{ 
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              backdropFilter: "blur(10px)"
-            }}
           >
             {messages.length > 0 ? (
               messages.map((msg, index) => (
                 <div key={index} className="flex items-start text-sm py-2 px-1">
                   <img src={msg.sender?.image || "/AnonimUser.png"} alt="User Profile" className="h-7 w-7 mr-2 rounded-full" />
-                  <div className="relative  bg-gray-700 bg-opacity-50 px-2 py-1 rounded-lg">
+                  <div className="bg-gray-700 rounded-lg px-3 py-2 text-white">
                     {msg.message || ""}
                   </div>
                 </div>
@@ -256,13 +258,10 @@ function Chat() {
             <div ref={messagesEndRef}></div>
           </div>
           
+          {/* Input pesan dengan border dan background solid */}
           <div 
-            id="InputChat" 
-            className="flex items-center mt-5 bg-opacity-40 bg-gray-800 rounded-lg px-4 py-2"
-            style={{ 
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              backdropFilter: "blur(10px)"
-            }}
+      
+            className="flex items-center mt-5 border-2  bg-white/20 rounded-xl px-4 py-2  border-gray-700 shadow-md"
           >
             <input
               className="bg-transparent flex-grow pr-4 outline-none placeholder:text-gray-300 placeholder:opacity-60 text-white"
@@ -275,9 +274,9 @@ function Chat() {
             />
             <button 
               onClick={sendMessage} 
-              className="ml-2 p-2 hover:bg-gray-700 hover:bg-opacity-50 rounded-full transition duration-200"
+              className="ml-2 p-2 hover:bg-gray-700 rounded-full transition duration-200"
             >
-              <img src="/paper-plane.png" alt="" className="h-4 w-4 lg:h-6 lg:w-6" />
+              <img src="/paper-plane.png" alt="" className="h-4 w-4 lg:h-6 lg:w-6 opacity-90" />
             </button>
           </div>
         </>
